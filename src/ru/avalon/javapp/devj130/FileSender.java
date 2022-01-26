@@ -19,12 +19,15 @@ public class FileSender {
     }
 
     private void run(String ip, String fileName) {
+
         try(Socket sock = new Socket(ip, FileReceiver.SERVER_PORT);
             OutputStream out = sock.getOutputStream()) {
             File file = new File(fileName);
             byte[] buf = new byte[FileReceiver.BUFFER_SIZE];
             byte[] bufFileName = file.getName().getBytes();
             out.write(bufFileName);
+            out.flush();
+            Thread.sleep(100);
 
             try (FileInputStream fis = new FileInputStream(file)) {
                 System.out.println("Start sending file...");

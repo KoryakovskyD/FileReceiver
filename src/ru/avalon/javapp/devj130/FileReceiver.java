@@ -55,6 +55,7 @@ public class FileReceiver {
             byte[] buf = new byte[BUFFER_SIZE];
             // Имя файла приходит в виде сериализованной строки
             int n = in.read(buf);
+            System.out.println("Str=" + new String(buf, 0, n));
             File file = createFile(new String(buf, 0, n));
             try (FileOutputStream fos = new FileOutputStream(file)) {
                 while (true) {
